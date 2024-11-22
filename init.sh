@@ -37,3 +37,5 @@ cd csi-driver-nfs
 
 
  curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+ kubectl create -f https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/deploy/example/nfs-provisioner/nfs-server.yaml
