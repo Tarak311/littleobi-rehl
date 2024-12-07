@@ -23,6 +23,11 @@ spec:
         app: wazuh-dashboard
       name: wazuh-dashboard
     spec:
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+          tolerationSeconds: 60
       volumes:
         - name: config
           configMap:

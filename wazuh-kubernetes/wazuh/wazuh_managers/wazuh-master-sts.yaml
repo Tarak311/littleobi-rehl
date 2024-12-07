@@ -27,6 +27,11 @@ spec:
         node-type: master
       name: wazuh-manager-master
     spec:
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+          tolerationSeconds: 60
       volumes:
         - name: config
           configMap:

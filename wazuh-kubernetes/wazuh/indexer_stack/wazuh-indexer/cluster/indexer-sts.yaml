@@ -24,6 +24,11 @@ spec:
         app: wazuh-indexer
       name: wazuh-indexer
     spec:
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+          tolerationSeconds: 60
       # Set the wazuh-indexer volume permissions so the wazuh-indexer user can use it
       volumes:
         - name: indexer-certs
