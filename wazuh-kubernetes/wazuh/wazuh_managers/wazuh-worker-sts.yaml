@@ -13,7 +13,7 @@ metadata:
   name: wazuh-manager-worker
   namespace: wazuh
 spec:
-  replicas: 0
+  replicas: 2
   selector:
     matchLabels:
       app: wazuh-manager
@@ -48,7 +48,7 @@ spec:
         fsGroup: 101
       containers:
         - name: wazuh-manager
-          image: 'wazuh/wazuh-manager:4.9.2'
+          image: 'wazuh/wazuh-manager:5.0.0'
           securityContext:
             capabilities:
               add: ["SYS_CHROOT"]
@@ -62,20 +62,8 @@ spec:
               readOnly: true
               subPath: root-ca.pem
             - name: filebeat-certs
-              mountPath: /etc/filebeat/certs/root-ca.pem
-              readOnly: true
-              subPath: root-ca.pem
-            - name: filebeat-certs
               mountPath: /etc/ssl/filebeat.pem
               subPath: filebeat.pem
-              readOnly: true
-            - name: filebeat-certs
-              mountPath: /etc/filebeat/certs/filebeat.pem
-              subPath: filebeat.pem
-              readOnly: true
-            - name: filebeat-certs
-              mountPath: /etc/filebeat/certs/filebeat-key.pem
-              subPath: filebeat-key.pem
               readOnly: true
             - name: filebeat-certs
               mountPath: /etc/ssl/filebeat.key
@@ -152,7 +140,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: local-path
+        storageClassName: wazuh-storage
         resources:
           requests:
             storage: 500Mi
