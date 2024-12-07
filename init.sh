@@ -39,3 +39,9 @@ cd csi-driver-nfs
  curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
  kubectl create -f https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/deploy/example/nfs-provisioner/nfs-server.yaml
+
+ sudo tee /etc/sysctl.d/kubernetes.conf <<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF 

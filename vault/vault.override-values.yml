@@ -20,7 +20,7 @@ ha:
         storage "raft" {
           path = "/vault/data"
           retry_join {
-            leader_api_addr = "https://vault-0.vault.pod.cluster.local:8200"
+            leader_api_addr = "https://vault-0.vault.pod.local.littleobi.com:8200"
             leader_ca_cert_file = "/vault/userconfig/tls-ca/ca.crt"
             leader_client_cert_file = "/vault/userconfig/tls-server/tls.crt"
             leader_client_key_file = "/vault/userconfig/tls-server/tls.key"
