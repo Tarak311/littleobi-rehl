@@ -13,7 +13,7 @@ metadata:
   name: wazuh-manager-worker
   namespace: wazuh
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: wazuh-manager
@@ -27,6 +27,11 @@ spec:
         node-type: worker
       name: wazuh-manager-worker
     spec:
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+          tolerationSeconds: 6000
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -133,11 +138,6 @@ spec:
                 secretKeyRef:
                   name: wazuh-cluster-key
                   key: key
-  tolerations:
-    - key: "node.kubernetes.io/unreachable"
-      operator: "Exists"
-      effect: "NoExecute"
-      tolerationSeconds: 60
   volumeClaimTemplates:
     - metadata:
         name: wazuh-manager-worker
