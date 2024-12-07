@@ -3,12 +3,12 @@ sudo yum install curl wget git -y
 # Enable Firewall rule for kubernates
 
 
- sudo firewall-cmd --permanent --add-port=6443/tcp
- sudo firewall-cmd --permanent --add-port=8472/udp
- sudo firewall-cmd --permanent --add-port=10250/tcp
- sudo firewall-cmd --permanent --add-port=51820/udp
- sudo firewall-cmd --permanent --add-port=51821/udp
- sudo firewall-cmd --permanent --zone=trusted --add-source=10.42.0.0/16
+ sudo firewall-cmd --permanent  --zone=trusted --add-port=6443/tcp
+ sudo firewall-cmd --permanent --zone=trusted --add-port=8472/udp
+ sudo firewall-cmd --permanent --zone=trusted --add-port=10250/tcp
+ sudo firewall-cmd --permanent --zone=trusted --add-port=51820/udp
+ sudo firewall-cmd --permanent --zone=trusted --add-port=51821/udp
+ sudo firewall-cmd --permanent --zone=trusted --zone=public --add-source=10.42.0.0/16
  sudo firewall-cmd --permanent --zone=trusted --add-source=10.43.0.0/16
  sudo firewall-cmd --reload
 
@@ -26,7 +26,11 @@ sudo cp /usr/bin/kubectl /usr/local/bin/kubectl
 #INSTALL Calico
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/tigera-operator.yaml
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/custom-resources.yaml
+kubectl delete -f calico 
+kubectl apply  -f calico 
 
+
+please be sure to have all the network check ip forwarding and bridge and stuff
 #NFS
 
 #https://github.com/kubernetes-csi/csi-driver-nfs
