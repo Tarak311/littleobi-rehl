@@ -27,6 +27,9 @@ spec:
     - name: registration
       port: 1515
       targetPort: 1515
+    - name: endpoint
+      port: 1514
+      targetPort: 1514
     - name: api
       port: 55000
       targetPort: 55000
