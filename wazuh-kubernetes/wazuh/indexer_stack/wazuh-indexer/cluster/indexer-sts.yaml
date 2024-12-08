@@ -13,7 +13,7 @@ metadata:
   name: wazuh-indexer
   namespace: wazuh
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: wazuh-indexer
@@ -123,7 +123,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: longhorn 
+        storageClassName: longhorn
         resources:
           requests:
             storage: 500Mi
