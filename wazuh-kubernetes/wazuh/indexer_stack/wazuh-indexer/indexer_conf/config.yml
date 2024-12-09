@@ -119,7 +119,7 @@ config:
               entity_id: https://sts.windows.net/740e7395-b487-465d-b58d-61d7996ee184/
             sp:
               entity_id: wazuh-saml
-            kibana_url: https://siem.littleobi.com
+            kibana_url: https://seim.littleobi.com
             roles_key: Roles
             exchange_key: '56ab0120d32c70dceb7dcf8926e51c1d602444429ff315396fbbb335de0f912e'
         authentication_backend:
