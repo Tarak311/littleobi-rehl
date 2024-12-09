@@ -114,7 +114,7 @@ spec:
               name: cluster
           env:
             - name: INDEXER_URL
-              value: 'https://indexer.wazuh.svc.k3s.littleobi.com:9200'
+              value: 'https://indexer:9200'
             - name: INDEXER_USERNAME
               valueFrom:
                 secretKeyRef:
