@@ -15,6 +15,7 @@ all_access:
   hidden: false
   backend_roles:
   - "admin"
+  - "Wazuh.Admin"
   hosts: []
   users: []
   and_backend_roles: []
