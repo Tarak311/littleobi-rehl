@@ -107,11 +107,11 @@ spec:
               mountPath: /usr/share/wazuh-indexer/opensearch.yml
               subPath: opensearch.yml
               readOnly: true
-            - name: conf  
+            - name: indexer-conf  
               mountPath: /usr/share/wazuh-indexer/opensearch-security/config.yml
               subPath: config.yml
               readOnly: true
-            - name: role_mapping  
+            - name: indexer-conf  
               mountPath: /usr/share/wazuh-indexer/opensearch-security/roles_mapping.yml
               subPath: roles_mapping.yml
               readOnly: true

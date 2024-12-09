@@ -33,9 +33,10 @@ configMapGenerator:
   - name: indexer-conf
     files:
       - indexer_stack/wazuh-indexer/indexer_conf/opensearch.yml
-      - indexer_stack/wazuh-indexer/indexer_conf/internal_users.yml
       - indexer_stack/wazuh-indexer/indexer_conf/config.yml
       - indexer_stack/wazuh-indexer/indexer_conf/roles_mapping.yml
+      - indexer_stack/wazuh-indexer/indexer_conf/internal_users.yml
+
   - name: wazuh-conf
     files:
       - wazuh_managers/wazuh_conf/master.conf
