@@ -1,7 +1,6 @@
 server:
    affinity: ""
    dataStorage:
-    enabled: true
     storageClass: longhorn
     size: 5Gi
    auditStorage:
