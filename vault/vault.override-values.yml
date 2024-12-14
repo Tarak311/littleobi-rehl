@@ -1,14 +1,12 @@
-injector:
-   enabled: false
 server:
    dataStorage:
      enabled: true
      storageClass: longhorn
-     size: 5Gi
+     size: 10Gi
    auditStorage:
      enabled: true
      storageClass: longhorn
-     size: 5Gi
+     size: 10Gi
    ha:
     enabled: true
     replicas: 2
@@ -29,8 +27,14 @@ server:
           path = "/vault/data"
           retry_join {
             leader_api_addr = "https://vault-0.vault.pod.k3s.littleobi.com:8200"
+            leader_ca_cert_file = "/vault/userconfig/tls-ca/ca.crt"
+            leader_client_cert_file = "/vault/userconfig/tls-server/tls.crt"
+            leader_client_key_file = "/vault/userconfig/tls-server/tls.key"
           }
           retry_join {
             leader_api_addr = "https://vault-1.vault.pod.k3s.littleobi.com:8200"
+            leader_ca_cert_file = "/vault/userconfig/tls-ca/ca.crt"
+            leader_client_cert_file = "/vault/userconfig/tls-server/tls.crt"
+            leader_client_key_file = "/vault/userconfig/tls-server/tls.key"
           }
         }
