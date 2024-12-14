@@ -18,7 +18,6 @@ server:
         ui = true
         cluster_name = "vault-integrated-storage"
         listener "tcp" {
-          tls_disable = 1
           address = "vault.vault.svc.k3s.littleobi.com:8200"
           cluster_address = "vault.vault.svc.k3s.littleobi.com:8201"
         }
