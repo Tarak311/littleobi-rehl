@@ -27,6 +27,6 @@ server:
           }
         
           retry_join {
-            leader_api_addr = "http://vault-0.vault-internal:8200"
+            leader_api_addr = "http://vault-1.vault-internal:8200"
           }
          }
