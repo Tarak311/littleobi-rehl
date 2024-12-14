@@ -23,6 +23,10 @@ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 sudo cp /usr/bin/kubectl /usr/local/bin/kubectl
 
+
+
+
+
 #INSTALL Calico
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/tigera-operator.yaml
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/custom-resources.yaml
@@ -30,19 +34,25 @@ kubectl delete -f calico
 kubectl apply  -f calico 
 
 
+
+
+
+
+
+#follow this for cilium  https://docs.cilium.io/en/stable/installation/k3s/
+CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
+CLI_ARCH=amd64
+if [ "$(uname -m)" = "aarch64" ]; then CLI_ARCH=arm64; fi
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
+sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum
+sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
+rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
+
+cilium install --version 1.16.4 --set=ipam.operator.clusterPoolIPv4PodCIDRList="192.168.0.0/16"
+
+
+
 please be sure to have all the network check ip forwarding and bridge and stuff
-#NFS
-
-#https://github.com/kubernetes-csi/csi-driver-nfs
-
-git clone https://github.com/kubernetes-csi/csi-driver-nfs.git
-cd csi-driver-nfs
-./deploy/install-driver.sh v4.9.0 local
-
-
- curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
- kubectl create -f https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/deploy/example/nfs-provisioner/nfs-server.yaml
 
  sudo tee /etc/sysctl.d/kubernetes.conf <<EOF
 net.bridge.bridge-nf-call-ip6tables = 1
