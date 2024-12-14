@@ -1,13 +1,12 @@
 server:
-   affinity: ""
    dataStorage:
-    enabled: true
-    storageClass: longhorn
-    size: 5Gi
+     enabled: true
+     storageClass: longhorn
+     size: 5Gi
    auditStorage:
-    enabled: true
-    storageClass: longhorn
-    size: 5Gi
+     enabled: true
+     storageClass: longhorn
+     size: 5Gi
 ha:
     enabled: true
     replicas: 2
