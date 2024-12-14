@@ -12,3 +12,4 @@ server:
     replicas: 2
     raft:
       enabled: true
+    affinity: null
