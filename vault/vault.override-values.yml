@@ -13,3 +13,21 @@ server:
     raft:
       enabled: true
       setNodeId: true
+
+      config: |
+        listener "tcp" {
+          tls_disable = 1
+          address = "vault.vault.svc.k3s.littleobi.com:8200"
+          cluster_address = "vault.vault.svc.k3s.littleobi.com:8201"
+        }
+
+        storage "raft" {
+          path = "/vault/data"
+          retry_join {
+            leader_api_addr = "http://vault-0.vault.pod.k3s.littleobi.com:8200"
+          }
+        
+          retry_join {
+            leader_api_addr = "http://vault-0.vault.pod.k3s.littleobi.com:8200"
+          }
+         }
