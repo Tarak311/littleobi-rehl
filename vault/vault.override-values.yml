@@ -1,5 +1,5 @@
 injector:
-   enabled:false
+   enabled: false
 server:
    dataStorage:
      enabled: true
