@@ -23,6 +23,6 @@ server:
         storage "raft" {
           path = "/vault/data"
           retry_join {
-          leader_api_addr = "https://vault-active.vault.svc.k3s.littleobi.com:8200"
+          leader_api_addr = "http://vault-active.vault.svc.k3s.littleobi.com:8200"
           }
         }
