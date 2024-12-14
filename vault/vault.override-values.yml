@@ -8,8 +8,6 @@ server:
     enabled: true
     storageClass: longhorn
     size: 5Gi
-csi:
-  enabled: true
 ha:
     enabled: true
     replicas: 2
