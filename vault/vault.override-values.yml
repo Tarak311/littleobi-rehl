@@ -1,3 +1,5 @@
+global:
+   enabled:
 injector:
    enabled: false
 server:
@@ -18,20 +20,19 @@ server:
 
       config: |
         ui = true
-        cluster_name = "vault-integrated-storage"
         listener "tcp" {
           tls_disable = 1
-          address = "vault-0.vault-internal:8200"
-          cluster_address = "vault-0.vault-internal:8201"
+          address = "vault.vault.svc.k3s.littleobi.com:8200"
+          cluster_address = "vault.vault.svc.k3s.littleobi.com:8201"
         }
 
         storage "raft" {
           path = "/vault/data"
           retry_join {
-            leader_api_addr = "http://vault-0.vault-internal:8200"
+            leader_api_addr = "https://vault-0.vault.pod.k3s.littleobi.com:8200"
           }
         }
           retry_join {
-            leader_api_addr = "http://vault-1.vault-internal:8200"
+            leader_api_addr = "https://vault-0.vault.pod.k3s.littleobi.com:8200"
           }
          
