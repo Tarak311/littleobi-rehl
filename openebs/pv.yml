@@ -1,11 +1,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: csi-lvmpv
+  name: localpv-vol
 spec:
-  storageClassName: openebs-lvmpv
-  accessModes:
-    - ReadWriteOnce
+  #Change this name if you are using a custom StorageClass
+  storageClassName: openebs-hostpath
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
-      storage: 4Gi
+      #Set capacity here
+      storage: 5Gi
