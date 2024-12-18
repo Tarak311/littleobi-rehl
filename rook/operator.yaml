@@ -75,7 +75,7 @@ data:
   # CSI_DRIVER_NAME_PREFIX: "rook-ceph"
 
   # Set replicas for csi provisioner deployment.
-  CSI_PROVISIONER_REPLICAS: "2"
+  CSI_PROVISIONER_REPLICAS: "1"
 
   # OMAP generator will generate the omap mapping between the PV name and the RBD image.
   # CSI_ENABLE_OMAP_GENERATOR need to be enabled when we are using rbd mirroring feature.
