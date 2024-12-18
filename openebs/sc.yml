@@ -3,6 +3,6 @@ kind: StorageClass
 metadata:
   name: openebs-lvmpv
 parameters:
-  storage: "data"
-  volgroup: "rhel"
+  storage: "lvm"
+  volgroup: "coldvg"
 provisioner: local.csi.openebs.io
