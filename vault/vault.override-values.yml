@@ -1,5 +1,17 @@
 
 server:
+   extraEnvironmentVars:
+    VAULT_CACERT: /vault/userconfig/vault-server-tls/vault.ca
+   volumes:
+    - name: userconfig-vault-server-tls
+      secret:
+        defaultMode: 420
+        secretName: vault-server-tls # Matches the ${SECRET_NAME} from above
+
+   volumeMounts:
+    - mountPath: /vault/userconfig/vault-server-tls
+      name: userconfig-vault-server-tls
+      readOnly: true
    affinity: null
    dataStorage:
      enabled: true
@@ -14,4 +26,36 @@ server:
     replicas: 2
     raft:
       enabled: true
+      setNodeId: true
+      config: |
+            cluster_name = "vault-integrated-storage"
+            ui = true
+            listener "tcp" {
+               tls_disable = 0
+               address = "[::]:8200"
+               cluster_address = "[::]:8201"
+               tls_cert_file = "/vault/userconfig/vault-server-tls/vault.crt"
+               tls_key_file  = "/vault/userconfig/vault-server-tls/vault.key"
+               tls_client_ca_file = "/vault/userconfig/vault-server-tls/vault.ca"
+            }
+            storage "raft" {
+               path = "/vault/data"
+               retry_join {
+                  leader_api_addr = "https://vault-0.vault.pod.k3s.littleobi.com:8200"
+                  leader_tls_servername = "vault-0.vault.pod.k3s.littleobi.com"
+                  leader_client_cert_file = "/vault/vault-server-tls/vault.crt"
+                  leader_client_key_file = "/vault/vault-server-tls/vault.key"
+                  leader_ca_cert_file = "/vault/vault-server-tls/vault.ca"
+                }
+
+                retry_join {
+                  leader_api_addr = "https://vault-1.vault.pod.k3s.littleobi.com:8200"
+                  leader_tls_servername = "vault-0.vault.pod.k3s.littleobi.com"
+                  leader_client_cert_file = "/vault/vault-server-tls/vault.crt"
+                  leader_client_key_file = "/vault/vault-server-tls/vault.key"
+                  leader_ca_cert_file = "/vault/vault-server-tls/vault.ca"
+                }
+            }
+            disable_mlock = true
+            service_registration "kubernetes" {}
    
