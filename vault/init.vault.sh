@@ -5,3 +5,6 @@ helm repo add hashicorp https://helm.releases.hashicorp.com
 sudo systemctl daemon-reload
 sudo systemctl enable wazuh-agent
 sudo systemctl start wazuh-agent
+
+
+openssl genrsa -out ${TMPDIR}/vault.key 2048
