@@ -443,3 +443,6 @@ monitoring:
   # requires Prometheus to be pre-installed
   # enabling will also create RBAC rules to allow Operator to create ServiceMonitors
   enabled: false
+mon:
+  count: 1
+  AllowMultiplePerNode: true
