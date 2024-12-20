@@ -11,11 +11,16 @@ server:
      size: 5Gi
    ha:
     enabled: true
+<<<<<<< HEAD
     replicas: 2
+=======
+    replicas: 1 
+>>>>>>> 8f547fb (sdd)
     raft:
       enabled: true
       config: |
         ui = true
+<<<<<<< HEAD
 
         listener "tcp" {
           tls_disable = 1
@@ -37,4 +42,6 @@ server:
         }
 
         service_registration "kubernetes" {}
+=======
+>>>>>>> 8f547fb (sdd)
    
