@@ -11,37 +11,8 @@ server:
      size: 5Gi
    ha:
     enabled: true
-<<<<<<< HEAD
-    replicas: 2
-=======
     replicas: 1 
->>>>>>> 8f547fb (sdd)
     raft:
       enabled: true
       config: |
         ui = true
-<<<<<<< HEAD
-
-        listener "tcp" {
-          tls_disable = 1
-          address     = "[::]:8200"
-          cluster_address = "[::]:8201"
-        }
-
-        storage "raft" {
-          path = "/vault/data"
-            retry_join {
-              leader_api_addr = "https://vault-0.vault-internal:8200"
-            }
-        }
-        retry_join {
-          leader_api_addr = "https://vault-1.vault-internal:8200"
-        }
-        retry_join {
-          leader_api_addr = "https://vault-2.vault-internal:8200"
-        }
-
-        service_registration "kubernetes" {}
-=======
->>>>>>> 8f547fb (sdd)
-   
