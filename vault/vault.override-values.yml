@@ -14,5 +14,3 @@ server:
     replicas: 1 
     raft:
       enabled: true
-      config: |
-        ui = true
