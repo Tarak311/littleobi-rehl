@@ -12,7 +12,7 @@ sudo yum install curl wget git -y
  sudo firewall-cmd --permanent --zone=trusted --add-source=10.43.0.0/16
  sudo firewall-cmd --reload
 
-#curl -sfL https://get.k3s.io | sh -
+#   
 
 #FOLLOW https://docs.tigera.io/calico/latest/getting-started/kubernetes/k3s/multi-node-install
 
@@ -54,7 +54,7 @@ cilium install --version 1.16.4 --set=ipam.operator.clusterPoolIPv4PodCIDRList="
 
 please be sure to have all the network check ip forwarding and bridge and stuff
 
- sudo tee /etc/sysctl.d/kubernetes.conf <<EOF
+sudo tee /etc/sysctl.d/kubernetes.conf <<EOF
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
