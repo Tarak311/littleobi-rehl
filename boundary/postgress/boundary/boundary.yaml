@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boundary-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boundary
+  template:
+    metadata:
+      labels:
+        app: boundary
+    spec:
+      hostNetwork: true
+      containers:
+      - name: boundary
+        image: boundary:latest
+        env:
+        - name: BOUNDARY_POSTGRES_URL
+          value: "postgresql://postgres:inkS8oqLCq@postgress-postgresql-primary.postgress.svc.k3s.littleobi.com:5432/postgres?sslmode=disable"
+        ports:
+        - containerPort: 9200
+        - containerPort: 9201
+        - containerPort: 9202
