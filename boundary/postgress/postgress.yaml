@@ -13,39 +13,57 @@ spec:
         app: postgres
     spec:
       containers:
-        - name: postgres
-          image: postgres:latest
-          ports:
-            - containerPort: 5432
-          env:
-            - name: POSTGRES_PASSWORD
-              value: "postgres"
-            - name: POSTGRES_USER
-              value: "postgres"
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: "youruser"
+        - name: POSTGRES_PASSWORD
+          value: "yourpassword"
+        - name: POSTGRES_DB
+          value: "yourdb"
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-storage
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
-spec:
-  type: ClusterIP
-  selector:
-    app: postgres
-  ports:
-    - protocol: TCP
-      port: 5432
-      targetPort: 5432
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres-nodeport
+  name: postgres-service-nodeport
 spec:
   type: NodePort
+  ports:
+  - port: 5432
+    targetPort: 5432
+    nodePort: 30007
   selector:
     app: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service-clusterip
+spec:
+  type: ClusterIP
   ports:
-    - protocol: TCP
-      port: 5432
-      targetPort: 5432
-      nodePort: 30007  # Change this to the desired port within the range 30000-32767
+  - port: 5432
+  selector:
+    app: postgres
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: longhorn
