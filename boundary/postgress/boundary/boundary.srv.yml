@@ -6,13 +6,16 @@ spec:
   selector:
     app: boundary
   ports:
-  - protocol: TCP
+  - name: boundary
+    protocol: TCP
     port: 9200
     targetPort: 9200
-  - protocol: TCP
+  - name: cluster
+    protocol: TCP
     port: 9201
     targetPort: 9201
-  - protocol: TCP
+  - name: worker
+    protocol: TCP
     port: 9202
     targetPort: 9202
   type: ClusterIP
