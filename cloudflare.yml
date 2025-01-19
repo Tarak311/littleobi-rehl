@@ -15,4 +15,4 @@ spec:
       containers:
       - name: cloudflared
         image: cloudflare/cloudflared:latest
-        args: ["tunnel", "--no-autoupdate", "run", "--token", "eyJhIjoiM2E4N2YwMzQxNGQ0ZjQ1MDMwOGE5ZDMzNzZmNWFiNWMiLCJ0IjoiMGEzYzdmZjMtZjZkMy00ZmU0LWEyMzktYmUyOTEzY2U0NmY2IiwicyI6IlpHWTBZamhrTWpRdFlXWmhNQzAwTnpkaExUbG1ZVFl0WmprME56SmpNelV4TlRGbCJ9"]
+        args: ["tunnel", "--no-autoupdate", "run", "--token", "eyJhIjoiM2E4N2YwMzQxNGQ0ZjQ1MDMwOGE5ZDMzNzZmNWFiNWMiLCJ0IjoiMGEzYzdmZjMtZjZkMy00ZmU0LWEyMzktYmUyOTEzY2U0NmY2IiwicyI6Ik5qRmtOak13TW1NdE9UZGhNQzAwTldFekxXRXhPREF0WVdRMk5qZ3dPR0l4WldZNSJ9"]
