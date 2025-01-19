@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cloudflared
+  labels:
+    app: cloudflared
 spec:
   replicas: 1
   selector:
@@ -15,21 +17,19 @@ spec:
       containers:
       - name: cloudflared
         image: cloudflare/cloudflared:latest
-        args: ["tunnel", "--no-autoupdate", "--token", "$TOKEN"]
+        args: ["tunnel", "--no-autoupdate", "run", "--token", "$(TOKEN)"]
         env:
         - name: TOKEN
           valueFrom:
-            configMapKeyRef:
-              name: cloudflared-config
+            secretKeyRef:
+              name: cloudflared-token
               key: token
-        volumeMounts:
-        - name: root-ca
-          mountPath: /etc/ssl/certs/root-ca.pem
-          subPath: root-ca.pem
-      volumes:
-      - name: root-ca
-        secret:
-          secretName: ca-cert-secret
-          items:
-          - key: root-ca.pem
-            path: root-ca.pem
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+      restartPolicy: Always
+

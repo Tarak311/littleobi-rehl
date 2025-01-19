@@ -1,0 +1,1 @@
+kubectl create secret generic cloudflared-token -n kube-system --from-literal=token=eyJhIjoiM2E4N2YwMzQxNGQ0ZjQ1MDMwOGE5ZDMzNzZmNWFiNWMiLCJ0IjoiMGEzYzdmZjMtZjZkMy00ZmU0LWEyMzktYmUyOTEzY2U0NmY2IiwicyI6Ik9EUmhOemxpWXpVdE9Ea3dNUzAwTWpCa0xXSTJNVE10T0RnNVltWXhZamsxWXpjeSJ9 
