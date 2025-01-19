@@ -17,7 +17,7 @@ sudo yum install curl wget git -y
 #FOLLOW https://docs.tigera.io/calico/latest/getting-started/kubernetes/k3s/multi-node-install
 
 
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--flannel-backend=none   --cluster-domain k3s.littleobi.com --disable-network-policy --cluster-cidr=192.168.0.0/16" sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--flannel-backend=none   --cluster-domain k3s.littleobi.com --disable-network-policy --cluster-cidr=192.168.0.0/16 --disable 'traefik' --disable-cloud-controller --write-kubeconfig-mode 644"  sh -
 
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
