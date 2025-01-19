@@ -22,3 +22,6 @@ cp ./root-ca.pem ./intermediate-ca.pem ./intermediate-ca.key /var/lib/rancher/k3
 sudo cp root-ca.crt /usr/local/share/ca-certificates/root-ca.crt
 sudo cp root-ca.pem /usr/local/share/ca-certificates/root-ca.crt
 sudo update-ca-trust
+sudo cp  root-ca.pem /etc/ssl/certs/
+
+kubectl create secret generic ca-cert-secret --from-file=root-ca.pem=/home/tarak311/private/root-ca.pem

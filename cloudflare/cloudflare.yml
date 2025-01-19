@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflared
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudflared
+  template:
+    metadata:
+      labels:
+        app: cloudflared
+    spec:
+      containers:
+      - name: cloudflared
+        image: cloudflare/cloudflared:latest
+        args: ["tunnel", "--no-autoupdate", "--token", "$(TOKEN)"]
+        env:
+        - name: TOKEN
+          valueFrom:
+            configMapKeyRef:
+              name: cloudflared-config
+              key: token
+        volumeMounts:
+        - name: root-ca
+          mountPath: /etc/ssl/certs/root-ca.pem
+          subPath: root-ca.pem
+      volumes:
+      - name: root-ca
+        secret:
+          secretName: ca-cert-secret
+          items:
+          - key: root-ca.pem
+            path: root-ca.pem
