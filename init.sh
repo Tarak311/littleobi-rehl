@@ -37,7 +37,7 @@ kubectl apply  -f calico
 
 
 
-
+##this is golden deployment
 
     #follow this for cilium  https://docs.cilium.io/en/stable/installation/k3s/
 CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
