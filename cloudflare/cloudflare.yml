@@ -1,9 +1,10 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cloudflared-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: cloudflared
@@ -16,3 +17,7 @@ spec:
       - name: cloudflared
         image: cloudflare/cloudflared:latest
         args: ["tunnel", "--no-autoupdate", "run", "--token", "eyJhIjoiM2E4N2YwMzQxNGQ0ZjQ1MDMwOGE5ZDMzNzZmNWFiNWMiLCJ0IjoiMGEzYzdmZjMtZjZkMy00ZmU0LWEyMzktYmUyOTEzY2U0NmY2IiwicyI6Ik9EUmhOemxpWXpVdE9Ea3dNUzAwTWpCa0xXSTJNVE10T0RnNVltWXhZamsxWXpjeSJ9"]
+
+
+
+
