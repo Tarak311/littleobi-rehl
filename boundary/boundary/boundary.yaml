@@ -35,15 +35,3 @@ spec:
           requests:
             cpu: "500m"
             memory: "256Mi"
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 9200
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 9200
-          initialDelaySeconds: 5
-          periodSeconds: 5
