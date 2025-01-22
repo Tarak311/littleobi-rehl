@@ -1,6 +1,6 @@
 global:
   storageClass: longhorn
-
+architecture: "replication"
 primary:
   persistence:
     size: 200Mi
