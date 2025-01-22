@@ -14,8 +14,6 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        fsGroup: 2000
       containers:
       - name: boundary
         image: hashicorp/boundary:latest  # Replace with the latest stable version
