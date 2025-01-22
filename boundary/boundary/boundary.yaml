@@ -12,6 +12,10 @@ spec:
       labels:
         app: boundary
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
       containers:
       - name: boundary
         image: hashicorp/boundary:latest  # Replace with the latest stable version
@@ -34,3 +38,15 @@ spec:
           requests:
             cpu: "500m"
             memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9200
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9200
+          initialDelaySeconds: 5
+          periodSeconds: 5
