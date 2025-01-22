@@ -12,8 +12,9 @@ replica:
 
 auth:
   postgresPassword: "Ola@babe@5483"
-  replication:
-    password: "Tge@yf63!34r"
+  password: "newUserPassword123"
+  replicationpassword: "Tge@yf63!34r"
+
 
 replication:
   enabled: true
