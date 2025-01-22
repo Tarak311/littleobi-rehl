@@ -12,12 +12,11 @@ spec:
       labels:
         app: boundary
     spec:
-      securityContext:
-        runAsNonRoot: true
       containers:
       - name: boundary
         image: hashicorp/boundary:latest  # Replace with the latest stable version
         securityContext:
+          privileged: false
           allowPrivilegeEscalation: false
         env:
         - name: BOUNDARY_POSTGRES_URL
