@@ -1,0 +1,1 @@
+kubectl create secret generic postpwd --from-literal=password=Tdf!hdjd1234 --from-literal=postgres-password=Tdjfn@6ffgg! --dry-run -o yaml | kubectl apply -f -

@@ -1,0 +1,19 @@
+global:
+  storageClass: longhorn
+
+primary:
+  persistence:
+    size: 200Mi
+
+replica:
+  replicaCount: 2
+  persistence:
+    size: 200Mi
+
+auth:
+  postgresPassword: "Ola@babe@5483"
+  replication:
+    password: "Tge@yf63!34r"
+
+replication:
+  enabled: true
