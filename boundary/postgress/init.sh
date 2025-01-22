@@ -1,1 +1,1 @@
-kubectl create secret generic postpwd --from-literal=password=Tdf!hdjd1234 --from-literal=postgres-password=Tdjfn@6ffgg!  --from-literal=replication-password=Tdjfn@6ffgg! --dry-run -o yaml | kubectl apply -f -
+ kubectl create secret generic postpwd --from-literal=password='Tdf!hdjd1234' --from-literal=postgres-password='Tdjfn@6ffgg!'  --from-literal=replication-password='Tdjfn@6ffgg!'    -o yaml | kubectl apply -n boundary -f -
