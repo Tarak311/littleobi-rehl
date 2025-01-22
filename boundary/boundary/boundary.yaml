@@ -12,15 +12,42 @@ spec:
       labels:
         app: boundary
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
       containers:
       - name: boundary
-        image: hashicorp/boundary:latest
+        image: hashicorp/boundary:0.12.0  # Replace with the latest stable version
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
         env:
         - name: BOUNDARY_POSTGRES_URL
-          value: "postgresql://postgres:Tdjfn@6ffgg!@postgress-postgresql-primary.boundary.svc.k3s.littleobi.com:5432/postgres?sslmode=disable"
-        - name: BOUNDARY_POSTGRES_URL
-          value: "postgresql://postgres:Tdjfn@6ffgg!@postgress-postgresql-primary.boundary.svc.k3s.littleobi.com:5432/postgres?sslmode=disable"
+          valueFrom:
+            secretKeyRef:
+              name: boundary-db-secret
+              key: db-url
         ports:
         - containerPort: 9200
         - containerPort: 9201
         - containerPort: 9202
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "500m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9200
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9200
+          initialDelaySeconds: 5
+          periodSeconds: 5

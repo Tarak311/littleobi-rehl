@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boundary-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boundary
+  template:
+    metadata:
+      labels:
+        app: boundary
+    spec:
+      containers:
+      - name: boundary
+        image: hashicorp/boundary:latest
+        env:
+        - name: BOUNDARY_POSTGRES_URL
+          value: "postgresql://postgres:Tdjfn@6ffgg!@postgress-postgresql-primary.boundary.svc.k3s.littleobi.com:5432/postgres?sslmode=disable"
+        - name: BOUNDARY_POSTGRES_URL
+          value: "postgresql://postgres:Tdjfn@6ffgg!@postgress-postgresql-primary.boundary.svc.k3s.littleobi.com:5432/postgres?sslmode=disable"
+        ports:
+        - containerPort: 9200
+        - containerPort: 9201
+        - containerPort: 9202
