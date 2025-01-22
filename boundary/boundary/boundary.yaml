@@ -21,7 +21,6 @@ spec:
         image: hashicorp/boundary:0.12.0  # Replace with the latest stable version
         securityContext:
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
         env:
         - name: BOUNDARY_POSTGRES_URL
           valueFrom:
@@ -32,10 +31,3 @@ spec:
         - containerPort: 9200
         - containerPort: 9201
         - containerPort: 9202
-        resources:
-          limits:
-            cpu: "1"
-            memory: "512Mi"
-          requests:
-            cpu: "500m"
-            memory: "256Mi"
