@@ -11,9 +11,7 @@ replica:
     size: 200Mi
 
 auth:
-  postgresPassword: "Ola@babe@5483"
-  password: "newUserPassword123"
-  replicationpassword: "Tge@yf63!34r"
+  existingSecret: postpwd
 
 
 replication:
