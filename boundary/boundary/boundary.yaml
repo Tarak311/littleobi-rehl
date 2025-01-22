@@ -17,7 +17,6 @@ spec:
         image: hashicorp/boundary:latest  # Replace with the latest stable version
         securityContext:
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
         env:
         - name: BOUNDARY_POSTGRES_URL
           valueFrom:
