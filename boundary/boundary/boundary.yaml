@@ -51,7 +51,7 @@ spec:
         - name: ca-cert
           mountPath: /etc/ssl/certs/ca.crt
           subPath: ca.crt
-    volumes:
+      volumes:
       - name: ca-cert
         secret:
           secretName: boundary-ca-cert
