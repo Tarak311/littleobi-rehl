@@ -49,8 +49,8 @@ spec:
           periodSeconds: 5
         volumeMounts:
         - name: ca-cert
-          mountPath: /etc/ssl/certs/ca.crt
-          subPath: ca.crt
+          mountPath: /etc/ssl/certs/ca.pem
+          subPath: ca.pem
       volumes:
       - name: ca-cert
         secret:
