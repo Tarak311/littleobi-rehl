@@ -1,18 +1,12 @@
 global:
   storageClass: longhorn
-architecture: "replication"
 primary:
   persistence:
     size: 2048Mi
   podAnnotations:
     "consul.hashicorp.com/connect-inject": "true"
     "consul.hashicorp.com/connect-service-port": "5432"
-    "consul.hashicorp.com/service-ignore": "true"
 
-replica:
-  replicaCount: 1
-  persistence:
-    size: 2048Mi
 
 auth:
   existingSecret: postpwd
