@@ -4,6 +4,12 @@ architecture: "replication"
 primary:
   persistence:
     size: 200Mi
+  podAnnotations:
+    "consul.hashicorp.com/connect-inject": "true"
+    "consul.hashicorp.com/connect-service-port": "5432"
+  annotations:
+    "consul.hashicorp.com/connect-inject": "true"
+    "consul.hashicorp.com/connect-service-port": "5432"
 
 replica:
   replicaCount: 2
@@ -34,7 +40,3 @@ tls:
   ## @param tls.certCAFilename CA Certificate filename
   ## If provided, PostgreSQL will authenticate TLS/SSL clients by requesting them a certificate
   ## ref: https://www.postgresql.org/docs/9.6/auth-methods.html
-postgresql:
-  podAnnotations:
-    "consul.hashicorp.com/connect-inject": "true"
-    "consul.hashicorp.com/connect-service-port": "5432"
