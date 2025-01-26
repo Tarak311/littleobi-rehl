@@ -14,9 +14,6 @@ auth:
   existingSecret: postpwd
 
 
-replication:
-  enabled: true
-
 tls:
   ## @param tls.enabled Enable TLS traffic support
   ##
