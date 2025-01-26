@@ -53,5 +53,5 @@ spec:
           subPath: ca.crt
       volumes:
       - name: ca-cert
-        secret:
-          secretName: boundary-ca-cert
+        configMap:
+          name: boundary-ca-cert
