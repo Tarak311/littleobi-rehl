@@ -16,7 +16,6 @@ replica:
   podAnnotations:
     "consul.hashicorp.com/connect-inject": "true"
     "consul.hashicorp.com/connect-service-port": "5432"
-    "consul.hashicorp.com/service-ignore": "true"
 
 auth:
   existingSecret: postpwd
