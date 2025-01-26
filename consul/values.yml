@@ -1,4 +1,8 @@
 connectInject:
-  enabled: true
+  transparentProxy:
+    defaultEnabled: true
 tls:
   enabled: true
+
+
+  
