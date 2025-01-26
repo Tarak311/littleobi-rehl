@@ -47,11 +47,3 @@ spec:
             port: 9200
           initialDelaySeconds: 5
           periodSeconds: 5
-        volumeMounts:
-        - name: ca-cert
-          mountPath: /etc/ssl/certs/ca.pem
-          subPath: ca.pem
-      volumes:
-      - name: ca-cert
-        secret:
-          secretName: ca-cert-secret
