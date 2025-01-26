@@ -1,8 +1,9 @@
+global:
+  name: consul
 connectInject:
-  transparentProxy:
-    defaultEnabled: false
-tls:
   enabled: true
-
-
-  
+  cni:
+    enabled: true
+    logLevel: info
+    cniBinDir: " /opt/cni/bin/"
+    cniNetDir: "/etc/cni/net.d"
