@@ -7,14 +7,16 @@ primary:
   podAnnotations:
     "consul.hashicorp.com/connect-inject": "true"
     "consul.hashicorp.com/connect-service-port": "5432"
-    "consul.hashicorp.com/connect-service": '{"name": "postgresql", "port": 5432, "connect": {"sidecar_service": {}}}'
-    "consul.hashicorp.com/service-ignore": "true"
   
 
 replica:
   replicaCount: 1
   persistence:
     size: 2048Mi
+  podAnnotations:
+    "consul.hashicorp.com/connect-inject": "true"
+    "consul.hashicorp.com/connect-service-port": "5432"
+    "consul.hashicorp.com/service-ignore": "true"
 
 auth:
   existingSecret: postpwd
