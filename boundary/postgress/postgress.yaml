@@ -1,5 +1,6 @@
 global:
   storageClass: longhorn
+architecture: "replication"
 primary:
   persistence:
     size: 2048Mi
@@ -8,11 +9,19 @@ primary:
     "consul.hashicorp.com/connect-service-port": "5432"
     "consul.hashicorp.com/connect-service": '{"name": "postgresql", "port": 5432, "connect": {"sidecar_service": {}}}'
     "consul.hashicorp.com/service-ignore": "true"
+  
 
+replica:
+  replicaCount: 1
+  persistence:
+    size: 2048Mi
 
 auth:
   existingSecret: postpwd
 
+
+replication:
+  enabled: true
 
 tls:
   ## @param tls.enabled Enable TLS traffic support
