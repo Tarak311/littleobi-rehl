@@ -47,3 +47,11 @@ spec:
             port: 9200
           initialDelaySeconds: 5
           periodSeconds: 5
+        volumeMounts:
+        - name: ca-cert
+          mountPath: /etc/ssl/certs/ca.crt
+          subPath: ca.crt
+      volumes:
+      - name: ca-cert
+        secret:
+          secretName: boundary-ca-cert
