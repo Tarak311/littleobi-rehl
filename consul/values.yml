@@ -1,6 +1,6 @@
 connectInject:
   transparentProxy:
-    defaultEnabled: true
+    defaultEnabled: false
 tls:
   enabled: true
 
