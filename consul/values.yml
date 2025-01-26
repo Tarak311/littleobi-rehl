@@ -1,2 +1,4 @@
 connectInject:
   enabled: true
+tls:
+  enabled: true
