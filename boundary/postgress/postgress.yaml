@@ -4,7 +4,7 @@ architecture: "replication"
 primary:
   persistence:
     size: 2048Mi
-  annotations:
+  podAnnotations:
     "consul.hashicorp.com/connect-inject": "true"
     "consul.hashicorp.com/connect-service-port": "5432"
   
@@ -13,9 +13,10 @@ replica:
   replicaCount: 1
   persistence:
     size: 2048Mi
-  annotations:
+  podAnnotations:
     "consul.hashicorp.com/connect-inject": "true"
     "consul.hashicorp.com/connect-service-port": "5432"
+
 
 auth:
   existingSecret: postpwd
