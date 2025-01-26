@@ -54,4 +54,4 @@ spec:
       volumes:
       - name: ca-cert
         secret:
-          secretName: boundary-ca-cert
+          secretName: ca-cert-secret
