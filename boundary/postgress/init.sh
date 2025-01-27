@@ -64,3 +64,6 @@ docker run   --network host  -v $HOME/private/root-ca.pem:/boundary/root-ca.pem 
  psql --host 127.0.0.1 -d postgres -p 5432 -U postgres
 
 helm upgrade --install postgress bitnami/postgresql -f postgress.yaml -n boundary   
+
+kubectl label service postgress-postgresql-primary-hl consul.hashicorp.com/service-ignore="true" -n boundary
+# do this for read only
