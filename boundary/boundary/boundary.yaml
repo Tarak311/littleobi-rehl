@@ -11,10 +11,6 @@ spec:
     metadata:
       labels:
         app: boundary
-      annotations:
-        consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/connect-service: "boundary"
-        consul.hashicorp.com/connect-service-upstreams: "postgress-postgresql-primary:5432"
     spec:
       containers:
       - name: boundary
