@@ -61,7 +61,7 @@ kubectl create secret generic postgres-certificates-tls-secret --from-file=./pos
 
 docker run   --network host  -v $HOME/private/root-ca.pem:/boundary/root-ca.pem    -e 'BOUNDARY_POSTGRES_URL=postgresql://postgres:Tdjfn@6ffgg!@0.0.0.0:5432/postgres?sslmode=verify-ca&sslrootcert=/boundary/root-ca.pem'   boundary database init -config /boundary/config.hcl
 
- psql --host 127.0.0.1 -d postgres -p 5432 -U postgres
+   
 
 helm upgrade --install postgress bitnami/postgresql -f postgress.yaml -n boundary   
 
