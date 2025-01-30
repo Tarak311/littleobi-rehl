@@ -59,7 +59,7 @@ kubectl config view \
 kubectl create secret generic postgres-certificates-tls-secret --from-file=./postgres.crt --from-file=./boundary.key --from-file=./root.ca
 
 
-docker run   --network host  -v $HOME/private/root-ca.pem:/boundary/root-ca.pem    -e 'BOUNDARY_POSTGRES_URL=postgresql://postgres:Tdjfn@6ffgg!@0.0.0.0:5432/postgres?sslmode=verify-ca&sslrootcert=/boundary/root-ca.pem'   boundary database init -config /boundary/config.hcl
+docker run   --network host  -v $HOME/private/root-ca.pem:/boundary/root-ca.pem    -e 'BOUNDARY_POSTGRES_URL=postgresql://postgres:Tdjfn@6ffgg!@0.0.0.0:5432/postgres?sslmode=require'   boundary database init -config /boundary/config.hcl
 
    
 
