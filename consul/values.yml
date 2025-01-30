@@ -7,3 +7,10 @@ connectInject:
     logLevel: info
     cniBinDir: "/opt/cni/bin"
     cniNetDir: "/etc/cni/net.d"
+    resources:
+      requests:
+        memory: "75Mi"
+        cpu: "75m"
+      limits:
+        memory: "300Mi"
+        cpu: "100m"
