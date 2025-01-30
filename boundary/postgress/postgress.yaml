@@ -8,7 +8,6 @@ primary:
     consul.hashicorp.com/connect-inject: "true"
     consul.hashicorp.com/connect-service: "postgress-postgresql-primary"
     consul.hashicorp.com/connect-service-port: "5432"
-    consul.hashicorp.com/transparent-proxy : "true"
   
 
 replica:
