@@ -37,3 +37,4 @@ tls:
     # It also switches consul-k8s-control-plane components to retrieve the CA from the servers
     # via the API. Requires Consul 1.7.1+.
     enableAutoEncrypt: true
+    verify: false
