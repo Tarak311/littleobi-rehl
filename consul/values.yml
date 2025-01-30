@@ -14,3 +14,26 @@ connectInject:
       limits:
         memory: "300Mi"
         cpu: "100m"
+dns:
+  # @type: boolean
+  enabled: true
+
+
+  enableRedirection: true
+
+  type: ClusterIP
+tls:
+    # If true, the Helm chart will enable TLS for Consul
+    # servers and clients and all consul-k8s-control-plane components, as well as generate certificate
+    # authority (optional) and server and client certificates.
+    # This setting is required for [Cluster Peering](https://developer.hashicorp.com/consul/docs/connect/cluster-peering/k8s).
+    enabled: true
+
+    # Override global log verbosity level. One of "trace", "debug", "info", "warn", or "error".
+    # @type: string
+    logLevel: warn
+
+    # If true, turns on the auto-encrypt feature on clients and servers.
+    # It also switches consul-k8s-control-plane components to retrieve the CA from the servers
+    # via the API. Requires Consul 1.7.1+.
+    enableAutoEncrypt: true
