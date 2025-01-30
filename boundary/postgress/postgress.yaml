@@ -15,9 +15,9 @@ replica:
   persistence:
     size: 2048Mi
   podAnnotations:
-    consul.hashicorp.com/connect-inject: "true"
+    consul.hashicorp.com/connect-inject: "false"
     consul.hashicorp.com/connect-service-port: "5422"
-    consul.hashicorp.com/transparent-proxy : "true"
+    consul.hashicorp.com/transparent-proxy : "false"
 
 
 auth:
