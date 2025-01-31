@@ -15,11 +15,6 @@ replica:
   replicaCount: 1
   persistence:
     size: 2048Mi
-  podAnnotations:
-    consul.hashicorp.com/connect-inject: "true"
-    consul.hashicorp.com/connect-service: "postgress-postgresql-read"
-    consul.hashicorp.com/connect-service-port: "5532"
-    consul.hashicorp.com/transparent-proxy: "true"
 
 
 auth:
