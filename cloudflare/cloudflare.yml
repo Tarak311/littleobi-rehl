@@ -15,7 +15,6 @@ spec:
         consul.hashicorp.com/connect-inject: "true"
         consul.hashicorp.com/connect-service: "cloudflare"
         consul.hashicorp.com/connect-service-upstreams: "boundary:9200" # Replace with the appropriate service name and port
-        consul.hashicorp.com/transparent-proxy: "true"
     spec:
       containers:
       - name: cloudflared
@@ -24,6 +23,8 @@ spec:
         securityContext:
           privileged: false
           allowPrivilegeEscalation: false
+          runAsUser: 1000
+          runAsGroup: 3000
         env:
         - name: TOKEN
           valueFrom:
@@ -31,3 +32,11 @@ spec:
               name: cloudflared-token
               key: token
           
+        
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloudflared-sa
