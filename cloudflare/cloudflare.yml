@@ -15,6 +15,7 @@ spec:
         consul.hashicorp.com/connect-inject: "true"
         consul.hashicorp.com/connect-service: "cloudflare"
         consul.hashicorp.com/connect-service-upstreams: "boundary:9200" # Replace with the appropriate service name and port
+        consul.hashicorp.com/transparent-proxy: "true"
     spec:
       containers:
       - name: cloudflared
