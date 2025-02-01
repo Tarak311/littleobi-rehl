@@ -13,7 +13,7 @@ spec:
         app: boundary
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/connect-service: "boundary"
+        consul.hashicorp.com/connect-service: "boundary-service"
         consul.hashicorp.com/connect-service-port: "9200"
         consul.hashicorp.com/connect-service-upstreams: "postgress-postgresql-primary:5432"
         consul.hashicorp.com/transparent-proxy: "true"
