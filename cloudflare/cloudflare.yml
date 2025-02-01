@@ -11,9 +11,6 @@ spec:
     metadata:
       labels:
         app: cloudflared
-      annotations:
-        consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/connect-service-upstreams: "boundary-service:9200" # Replace with the appropriate service name and port
     spec:
       containers:
       - name: cloudflared
