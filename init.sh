@@ -60,6 +60,6 @@ net.ipv4.ip_forward = 1
 EOF 
 
 kubectl get pvc -n vault | grep vault  | awk  '{print $2}' | xargs kubectl delete pvc  -n vault
-kubectl get pvc  |  awk  '{print $2}' | xargs kubectl delete pvc  
+kubectl get pvc -A  |  awk  '{print $2}' | xargs kubectl delete pvc  
 helm upgrade consul hashicorp/consul --set global.name=consul --create-namespace --namespace consul --values values.yml
 helm upgrade --install postgress bitnami/postgresql -f postgress.yaml -n boundary
