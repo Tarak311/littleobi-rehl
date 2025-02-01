@@ -11,6 +11,10 @@ spec:
     metadata:
       labels:
         app: cloudflared
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/connect-service-upstreams: "boundary-service:9200"
+        consul.hashicorp.com/transparent-proxy: "true"
     spec:
       containers:
       - name: cloudflared
