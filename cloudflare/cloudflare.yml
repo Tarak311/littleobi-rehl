@@ -29,13 +29,5 @@ spec:
           runAsUser: 1000
           runAsGroup: 3000
           fsGroup: 2000
-      serviceAccountName: cloudflared-sa
-      securityContext:
-        fsGroup: 2000
 
----
 
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: cloudflared-sa
