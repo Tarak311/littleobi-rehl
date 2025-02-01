@@ -19,18 +19,19 @@ spec:
       - name: cloudflared
         image: cloudflare/cloudflared:latest
         args: ["tunnel", "--no-autoupdate", "run", "--token", "$(TOKEN)"]
+        securityContext:
+          privileged: false
+          allowPrivilegeEscalation: false
+          runAsUser: 1000
+          runAsGroup: 3000
         env:
         - name: TOKEN
           valueFrom:
             secretKeyRef:
               name: cloudflared-token
               key: token
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 3000
-      serviceAccountName: cloudflared-sa
-      securityContext:
-        fsGroup: 2000
+          
+        
 
 ---
 
