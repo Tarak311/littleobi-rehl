@@ -23,8 +23,6 @@ spec:
         securityContext:
           privileged: false
           allowPrivilegeEscalation: false
-          runAsUser: 1000
-          runAsGroup: 3000
         env:
         - name: TOKEN
           valueFrom:
@@ -32,11 +30,3 @@ spec:
               name: cloudflared-token
               key: token
           
-        
-
----
-
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: cloudflared-sa
