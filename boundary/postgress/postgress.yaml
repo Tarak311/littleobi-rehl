@@ -25,7 +25,7 @@ replication:
   enabled: true
 tls:
 
-  enabled: true
+  enabled: false
   
   certificatesSecret: "boundary-certificates-tls-secret"
 
