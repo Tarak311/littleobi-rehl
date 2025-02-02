@@ -1,0 +1,12 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: boundary
+ namespace: boundary
+# Allow traffic from nginx to frontend
+spec:
+ destination:
+   name: postgress-postgresql-primary
+ sources:
+   - name: boundary-service
+     action: block
