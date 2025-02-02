@@ -33,7 +33,7 @@ tls:
   certificatesSecret: "boundary-certificates-tls-secret"
   ## @param tls.certFilename Certificate filename
   ##
-  certFilename: "postgres.pem"
+  certFilename: "boundary.pem"
   ## @param tls.certKeyFilename Certificate key filename
   ##
   certKeyFilename: "boundary.key"
