@@ -16,6 +16,7 @@ spec:
         consul.hashicorp.com/connect-service: "boundary-service"
         consul.hashicorp.com/connect-service-port: "9200"
         consul.hashicorp.com/connect-service-upstreams: "postgress-postgresql-primary:5432"
+        consul.hashicorp.com/transparent-proxy: "true"
         consul.hashicorp.com/mesh-gateway: "true"
     spec:
       containers:
