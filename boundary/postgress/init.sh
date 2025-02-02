@@ -20,19 +20,19 @@ extendedKeyUsage = serverAuth, clientAuth
 subjectAltName = @alt_names
 [alt_names]
 DNS.1 = *.boundary.svc.k3s.littleobi.com
-DNS.2 = postgress-postgresql-primary.boundary.svc.k3s.littleobi.com
-DNS.3 = postgress-postgresql-read.boundary.svc.k3s.littleobi.com    
+DNS.2 = postgress-postgresql-primary
+DNS.3 = *.consul   
 IP.1 = 127.0.0.1
 
 
 openssl req -new -key ./boundary.key -out ./boundary.csr -config ./boundary-csr.conf
 
 
-cat > ${WORKDIR}/csr.yaml <<EOF
+cat > ${WORKDIR}/boundary.csr.yaml <<EOF
 apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
-   name: postgress.svc
+   name: boundary.svc
 spec:
    signerName: kubernetes.io/kubelet-serving
    expirationSeconds: 8640000
@@ -42,21 +42,21 @@ spec:
    - key encipherment
    - server auth
 EOF
+kubectl create -f ${WORKDIR}/boundary.csr.yaml
 
+kubectl certificate approve boundary.svc
 
-kubectl certificate approve postgress.svc
-
-kubectl get csr postgress.svc -o jsonpath='{.status.certificate}' | openssl base64 -d -A -out ${WORKDIR}/postgres.crt
+kubectl get csr boundary.svc -o jsonpath='{.status.certificate}' | openssl base64 -d -A -out ${WORKDIR}/boundary.pem
 
 kubectl config view \
 --raw \
 --minify \
 --flatten \
 -o jsonpath='{.clusters[].cluster.certificate-authority-data}' \
-| base64 -d > ${WORKDIR}/root.ca
+| base64 -d > ${WORKDIR}/root-ca.pem
 
 
-kubectl create secret generic postgres-certificates-tls-secret --from-file=./postgres.crt --from-file=./boundary.key --from-file=./root.ca
+kubectl create secret generic boundary-certificates-tls-secret --from-file=./boundary.pem --from-file=./boundary.key --from-file=./root-ca.pem
 
 
 docker run   --network host  -v $HOME/private/root-ca.pem:/boundary/root-ca.pem    -e 'BOUNDARY_POSTGRES_URL=postgresql://postgres:Tdjfn@6ffgg!@0.0.0.0:5432/postgres?sslmode=require'   boundary database init -config /boundary/config.hcl

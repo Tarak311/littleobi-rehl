@@ -13,6 +13,7 @@ global:
 
 connectInject:
   enabled: true
+  enableTLS: true
   cni:
     enabled: true
     logLevel: info
@@ -25,8 +26,7 @@ connectInject:
       limits:
         memory: "300Mi"
         cpu: "100m"
-  enableTLS: true
-
+  
 dns:
   enabled: true
   enableRedirection: true
