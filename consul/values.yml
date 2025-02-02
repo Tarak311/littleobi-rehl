@@ -1,11 +1,11 @@
 global:
   name: consul
 
-tls:
-  enabled: true
-  logLevel: warn
-  enableAutoEncrypt: true
-  verify: true
+  tls:
+    enabled: true
+    logLevel: warn
+    enableAutoEncrypt: true
+    verify: true
 
 connectInject:
   enabled: true
@@ -38,7 +38,7 @@ meshGateway:
       memory: "500Mi"
       cpu: "200m"
   tls:
-    enableAutoEncrypt: true
+    enabl 
 
 acl:
   enabled: true
