@@ -10,3 +10,4 @@ spec:
  sources:
    - name: boundary-service
      action: deny
+
