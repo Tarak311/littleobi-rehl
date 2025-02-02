@@ -1,19 +1,14 @@
 global:
   name: consul
 
-  tls:
-    enabled: true
-    logLevel: warn
-    enableAutoEncrypt: true
-    verify: true
-    metrics:
-      enabled: true
-      enableAgentMetrics: true
-      agentMetricsRetentionTime: "10m"
+tls:
+  enabled: true
+  logLevel: warn
+  enableAutoEncrypt: true
+  verify: true
 
 connectInject:
   enabled: true
-  enableTLS: true
   cni:
     enabled: true
     logLevel: info
