@@ -9,4 +9,4 @@ spec:
    name: postgress-postgresql-primary
  sources:
    - name: boundary-service
-     action: deny
+     action: allow
