@@ -10,11 +10,6 @@ global:
     enabled: "true"
     manageSystemACLs: "true"
     defaultPolicy: "allow"
-    bootstrapToken:
-      # Use Kubernetes secrets for ACL tokens
-      master:
-        secretName: consul-master-token
-        secretKey: master-token
   client:
     enabled: true
 connectInject:
