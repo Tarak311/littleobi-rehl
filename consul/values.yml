@@ -2,15 +2,15 @@ global:
   name: consul
 
   tls:
-    enabled: true
+    enabled: "true"
     logLevel: warn
-    enableAutoEncrypt: true
-    verify: true
+    enableAutoEncrypt: "true"
+    verify: "true"
 
 connectInject:
-  enabled: true
+  enabled: "true"
   cni:
-    enabled: true
+    enabled: "true"
     logLevel: info
     cniBinDir: "/opt/cni/bin"
     cniNetDir: "/etc/cni/net.d"
@@ -38,11 +38,11 @@ meshGateway:
       memory: "500Mi"
       cpu: "200m"
   tls:
-    enabl 
+    enabled: true
 
 acl:
-  enabled: true
-  defaultPolicy: deny
+  enabled: "true"
+  defaultPolicy: "deny"
   tokens:
     # Use Kubernetes secrets for ACL tokens
     master:
