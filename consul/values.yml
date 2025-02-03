@@ -22,8 +22,6 @@ connectInject:
   default: true
   centralConfig:
     enabled: true
-  transparentProxy: 
-    defaultEnabled: "true"
   cni:
     enabled: "true"
     logLevel: info
