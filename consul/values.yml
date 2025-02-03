@@ -8,7 +8,7 @@ global:
     verify: "true"
   acls:
     enabled: "true"
-    manageSystemACLs: "true"
+    manageSystemACLs: "false"
     defaultPolicy: "deny"
     bootstrapToken:
       # Use Kubernetes secrets for ACL tokens
