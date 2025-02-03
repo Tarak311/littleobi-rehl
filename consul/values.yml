@@ -12,6 +12,9 @@ global:
     defaultPolicy: "deny"
 connectInject:
   enabled: "true"
+  transparentProxy:
+    defaultEnabled: "true"
+    
   cni:
     enabled: "true"
     logLevel: info
