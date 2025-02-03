@@ -32,17 +32,3 @@ dns:
   enableRedirection: true
   type: ClusterIP
 
-meshGateway:
-  enabled: true
-  replicas: 1
-  resources:
-    requests:
-      memory: "100Mi"
-      cpu: "100m"
-    limits:
-      memory: "500Mi"
-      cpu: "200m"
-  tls:
-    enabled: true
-
-
