@@ -6,12 +6,6 @@ global:
     logLevel: warn
     enableAutoEncrypt: "true"
     verify: "true"
-  acls:
-    enabled: "true"
-    manageSystemACLs: "true"
-    defaultPolicy: "allow"
-  client:
-    enabled: true
 connectInject:
   enabled: "true"
   cni:
