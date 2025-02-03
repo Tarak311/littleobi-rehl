@@ -6,7 +6,7 @@ metadata:
 # Allow traffic from nginx to frontend
 spec:
  destination:
-   name: postgress-postgresql-primary
+   name: boundary-service
  sources:
-   - name: boundary-service
+   - name: "*"
      action: allow
