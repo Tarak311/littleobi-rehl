@@ -8,8 +8,8 @@ global:
     verify: "true"
   acls:
     enabled: "true"
-    manageSystemACLs: "false"
-    defaultPolicy: "deny"
+    manageSystemACLs: "true"
+    defaultPolicy: "allow"
     bootstrapToken:
       # Use Kubernetes secrets for ACL tokens
       master:
@@ -19,9 +19,6 @@ global:
     enabled: true
 connectInject:
   enabled: "true"
-  default: true
-  centralConfig:
-    enabled: true
   cni:
     enabled: "true"
     logLevel: info
