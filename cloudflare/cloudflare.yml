@@ -25,11 +25,14 @@ spec:
             secretKeyRef:
               name: cloudflared-token
               key: token
-          
-        
-
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
 ---
-
 apiVersion: v1
 kind: ServiceAccount
 metadata:
