@@ -64,3 +64,4 @@ kubectl get pvc -A  |  awk  '{print $2}' | xargs kubectl delete pvc
 helm install consul hashicorp/consul --set global.name=consul --create-namespace --namespace consul --values values.yml
 helm upgrade --install postgress bitnami/postgresql -f postgress.yaml -n boundary
  helm install cilium cilium/cilium --version 1.11.0 --namespace kube-system
+helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace -f values.yaml

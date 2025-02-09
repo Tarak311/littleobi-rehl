@@ -25,8 +25,7 @@ serviceAccount:
 rbac:
   create: true
 
+
 enableNetworkPolicy: true
-
-
 
 enablePSP: false
