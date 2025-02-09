@@ -25,7 +25,14 @@ nodeEncryption: true # Enable encryption for node-to-node traffic
 
 
 hubble:
-  enabled: true # Enable Hubble for visibility
+  enabled: true # Already enabled
+  relay:
+    enabled: true # Enable Hubble Relay
+
+clustermesh:
+  enabled: true # Enable Cluster Mesh
+
+
 
 transparentEncryption:
   enabled: true # Enable Transparent Encryption
