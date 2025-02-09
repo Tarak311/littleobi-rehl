@@ -1,6 +1,7 @@
 global:
   name: consul
   gossipEncryption:
+    enabled: true
     autoGenerate: true
   tls:
     enabled: "true"

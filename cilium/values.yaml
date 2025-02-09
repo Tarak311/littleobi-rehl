@@ -1,0 +1,27 @@
+# values.yaml for Cilium Helm Chart with Traffic Encryption
+
+ipam:
+  mode: cluster-pool
+  operator:
+    clusterPoolIPv4PodCIDRList:
+      - 172.0.0.0/16
+
+encryption:
+  enabled: true
+  type: wireguard # Use 'ipsec' if you prefer IPsec encryption
+
+kubeProxyReplacement: strict # Replace kube-proxy entirely with Cilium
+
+tunnel: vxlan # VXLAN tunneling for pod-to-pod communication
+
+operator:
+  replicas: 1 # Number of Cilium Operator replicas
+
+cluster:
+  id: 1 # Unique cluster ID for Cilium
+  name: my-cluster # Name of your Kubernetes cluster
+
+ipv4:
+  enabled: true # Enable IPv4 support for the cluster
+
+nodeEncryption: true # Enable encryption for node-to-node traffic

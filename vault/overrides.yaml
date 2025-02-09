@@ -1,0 +1,133 @@
+global:
+  enabled: true
+  tlsDisable: false
+
+injector:
+  enabled: true
+
+server:
+  extraEnvironmentVars:
+    VAULT_CACERT: /vault/userconfig/vault-ha-tls/vault.ca
+    VAULT_TLSCERT: /vault/userconfig/vault-ha-tls/vault.crt
+    VAULT_TLSKEY: /vault/userconfig/vault-ha-tls/vault.key
+  volumes:
+    - name: userconfig-vault-ha-tls
+      secret:
+        defaultMode: 420
+        secretName: vault-ha-tls
+  volumeMounts:
+    - mountPath: /vault/userconfig/vault-ha-tls
+      name: userconfig-vault-ha-tls
+      readOnly: true
+
+  standalone:
+    enabled: false
+
+  affinity: null
+
+  dataStorage:
+    enabled: true
+    storageClass: longhorn
+    size: 5Gi
+
+  auditStorage:
+    enabled: true
+    storageClass: longhorn
+    size: 5Gi
+    mountPath: /vault/audit
+    accessMode: ReadWriteOnce
+
+  ha:
+    enabled: true
+    replicas: 2
+    raft:
+      enabled: true
+      setNodeId: true
+      config: |
+        cluster_name = "vault-integrated-storage"
+        ui = true
+        listener "tcp" {
+          tls_disable = 0
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+          tls_cert_file = "/vault/userconfig/vault-ha-tls/vault.crt"
+          tls_key_file  = "/vault/userconfig/vault-ha-tls/vault.key"
+          tls_client_ca_file = "/vault/userconfig/vault-ha-tls/vault.ca"
+        }
+        storage "raft" {
+          path = "/vault/data"
+        }
+        disable_mlock = true
+        service_registration "kubernetes" {}
+
+  securityContext:
+    enabled: true
+    runAsUser: 1000
+    runAsNonRoot: true
+    fsGroup: 1000
+    capabilities:
+      drop:
+        - ALL
+    allowPrivilegeEscalation: false
+
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+  rbac:
+    create: true
+    policies:
+      - name: vault-server-policy
+        policy: |
+          path "sys/mounts/*" {
+            capabilities = ["create", "read", "update", "delete", "list"]
+          }
+          path "auth/*" {
+            capabilities = ["create", "read", "update", "delete", "list"]
+          }
+          path "secret/*" {
+            capabilities = ["create", "read", "update", "delete", "list"]
+          }
+
+  telemetry:
+    enabled: true
+    prometheusRetentionTime: "5m"
+    prometheusMetricsPort: 9102
+
+
+
+
+
+
+
+monitoring:
+  enabled: true
+  prometheus:
+    enabled: true
+  grafana:
+    enabled: true
+  alertmanager:
+    enabled: true
+
+networkPolicy:
+  enabled: true
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: vault
+        - podSelector:
+            matchLabels:
+              app: cloudflare
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: vault
+        - podSelector:
+            matchLabels:
+              app: cloudflare

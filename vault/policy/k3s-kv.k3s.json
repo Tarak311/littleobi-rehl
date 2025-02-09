@@ -1,0 +1,3 @@
+path "k3s-kv/data/webapp/config" {
+   capabilities = ["read", "list"]
+}

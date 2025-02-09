@@ -27,20 +27,6 @@ rbac:
 
 enableNetworkPolicy: true
 
-networkPolicy:
-  allowDefault: false
-  ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: longhorn-system
 
-ingress:
-  enabled: false
 
-psp:
-  allowPrivileged: false
-
-tls:
-  enabled: true
-  certManager: true
+enablePSP: false
