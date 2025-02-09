@@ -15,7 +15,6 @@ operator:
   replicas: 2 # Number of Cilium Operator replicas
 
 cluster:
-  id: 1 # Unique cluster ID for Cilium
   name: default # Name of your Kubernetes cluster
 
 ipv4:
