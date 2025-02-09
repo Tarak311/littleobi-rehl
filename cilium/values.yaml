@@ -27,6 +27,8 @@ hubble:
   enabled: true # Already enabled
   relay:
     enabled: true # Enable Hubble Relay
+    dialTimeout: 30s # Increase the dial timeout
+    retryTimeout: 30s # Increase the retry timeout
 
 clustermesh:
   enabled: true # Enable Cluster Mesh
