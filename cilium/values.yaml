@@ -16,9 +16,36 @@ operator:
 
 cluster:
   id: 1 # Unique cluster ID for Cilium
-  name: my-cluster # Name of your Kubernetes cluster
+  name: default # Name of your Kubernetes cluster
 
 ipv4:
   enabled: true # Enable IPv4 support for the cluster
 
 nodeEncryption: true # Enable encryption for node-to-node traffic
+
+
+hubble:
+  enabled: true # Enable Hubble for visibility
+
+transparentEncryption:
+  enabled: true # Enable Transparent Encryption
+
+endpointPolicy:
+  enabled: true # Enable Endpoint Policies
+
+tls:
+  enabled: true 
+podSecurityPolicy:
+  enabled: true # Enable Pod Security Policies
+
+networkPolicy:
+  enabled: true # Enable Network Policies
+
+autoUpdate:
+  enabled: true # Enable automatic updates
+
+endpointHealthMonitoring:
+  enabled: true # Enable endpoint health monitoring
+
+resourceLimits:
+  enabled: true
