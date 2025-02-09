@@ -12,7 +12,6 @@ encryption:
 
 kubeProxyReplacement: strict # Replace kube-proxy entirely with Cilium
 
-tunnel: vxlan # VXLAN tunneling for pod-to-pod communication
 
 operator:
   replicas: 1 # Number of Cilium Operator replicas
