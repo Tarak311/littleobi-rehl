@@ -12,7 +12,7 @@ encryption:
 
 
 operator:
-  replicas: 1 # Number of Cilium Operator replicas
+  replicas: 2 # Number of Cilium Operator replicas
 
 cluster:
   id: 1 # Unique cluster ID for Cilium
