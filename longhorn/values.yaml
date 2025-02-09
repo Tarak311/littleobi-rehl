@@ -28,4 +28,4 @@ rbac:
 
 enableNetworkPolicy: true
 
-enablePSP: false
+enablePSP: true

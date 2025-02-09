@@ -1,0 +1,39 @@
+defaultVaultConnection:
+  enabled: true
+  address: "http://vault-internal.vault.svc.k3s.littleobi.com"
+  skipTLSVerify: false
+
+
+controller:
+  replicas: 1
+  manager:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+    logging:
+      # Sets the log level for the operator.
+      # Builtin levels are: info, error, debug, debug-extended, trace
+      # Default: info
+      # @type: string
+      level: info
+
+      # Sets the time encoding for the operator.
+      # Options are: epoch, millis, nano, iso8601, rfc3339, rfc3339nano
+      # Default: rfc3339
+      # @type: string
+      timeEncoding: rfc3339
+
+    # Configures the Pod Security Context
+  # https://kubernetes.io/docs/tasks/configure-pod-container/security-context
+  podSecurityContext:
+    runAsNonRoot: true
+
+  # Configures the Container Security Context
+  # https://kubernetes.io/docs/tasks/configure-pod-container/security-context
+  securityContext:
+    allowPrivilegeEscalation: false
+

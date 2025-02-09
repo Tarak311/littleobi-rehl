@@ -4,12 +4,12 @@ global:
     enabled: true
     autoGenerate: true
   tls:
-    enabled: "true"
+    enabled: true
     logLevel: warn
-    enableAutoEncrypt: "true"
-    verify: "true"
+    enableAutoEncrypt: true
+    verify: true
 connectInject:
-  enabled: "true"
+  enabled: true
   cni:
     enabled: "true"
     logLevel: info

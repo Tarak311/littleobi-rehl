@@ -25,4 +25,4 @@ vault write auth/k3s/role/k3s-kv-role \
    policies=k3s-kv.k3s \
    audience=vault \
    ttl=24h
-vault kv put k3s-kv/webapp/config username="static-user" password="static-password"
+vault kv put k3s-kv/webapp/config username="static-user" password="static-password" 
