@@ -1,0 +1,25 @@
+vault secrets enable -path=connect_dc1_inter pki
+
+vault secrets tune -max-lease-ttl=21900h connect_dc1_inter
+
+vault policy write connect-ca vault-policy-connect-ca.hcl
+
+
+vault write -field=csr connect_dc1_inter/intermediate/generate/internal \
+    common_name="dc1.consul" \
+    ttl=21900h > connect_dc1_inter.csr.pem
+
+
+vault write -field=certificate consul_root/root/sign-intermediate \
+    csr=@connect_dc1_inter.csr.pem \
+    format=pem_bundle \
+    ttl=21900h > connect_dc1_inter.cert.pem
+
+
+vault write connect_dc1_inter/intermediate/set-signed \
+    certificate=@connect_dc1_inter.cert.pem
+
+
+vault write connect_dc1_inter/config/urls \
+    issuing_certificates="https://vault-internal.vault.svc:8200/v1/connect_dc1_inter/ca" \
+    crl_distribution_points="https://vault-internal.vault.svc:8200/v1/connect_dc1_inter/crl"

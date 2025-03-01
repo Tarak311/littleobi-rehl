@@ -1,0 +1,47 @@
+global:
+  name: consul
+  gossipEncryption:
+    enabled: true
+    autoGenerate: true
+  tls:
+    enabled: true
+    logLevel: warn
+    enableAutoEncrypt: true
+    verify: true
+    caCert:
+      secretName: "pki/cert/ca"
+  secretsBackend:
+    secretsBackend:
+    vault:
+      enabled: true
+      vaultNamespace: "root"
+      consulServerRole: consul-server
+      consulClientRole: consul-client
+      consulCARole: consul-ca
+      agentAnnotations: |
+          "vault.hashicorp.com/tls-skip-verify": 'true'
+      connectCA:
+        address: "vault-internal.vault.svc:8200"
+        rootPKIPath: connect-root/
+        intermediatePKIPath: connect-intermediate-dc1/
+        agentAnnotations: |
+          "vault.hashicorp.com/tls-skip-verify": 'true'
+connectInject:
+  enabled: true
+  cni:
+    enabled: "true"
+    logLevel: info
+    cniBinDir: "/opt/cni/bin"
+    cniNetDir: "/etc/cni/net.d"
+    resources:
+      requests:
+        memory: "75Mi"
+        cpu: "75m"
+      limits:
+        memory: "300Mi"
+        cpu: "100m"
+dns:
+  enabled: true
+  enableRedirection: true
+  type: ClusterIP
+

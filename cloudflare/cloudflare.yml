@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudflared-deployment
+  name: cloudflared-test
 spec:
   replicas: 1
   selector:
@@ -11,20 +11,19 @@ spec:
     metadata:
       labels:
         app: cloudflared
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/connect-service: "cloudflared"
+        consul.hashicorp.com/connect-service-upstreams: "nginx:80"
+        consul.hashicorp.com/transparent-proxy: "true"
     spec:
       containers:
       - name: cloudflared
         image: cloudflare/cloudflared:latest
-        args: ["tunnel", "--no-autoupdate", "run", "--token", "$(TOKEN)"]
+        args: ["tunnel", "--metrics", "127.0.0.1:20001", "--no-autoupdate", "run", "--token" ,""]
         securityContext:
           privileged: false
           allowPrivilegeEscalation: false
-        env:
-        - name: TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: cloudflared-token
-              key: token
         resources:
           requests:
             memory: "128Mi"
@@ -32,8 +31,18 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+
 ---
 apiVersion: v1
-kind: ServiceAccount
+kind: Service
 metadata:
-  name: cloudflared-sa
+  name: cloudflared
+  labels:
+    app: cloudflared
+spec:
+  type: ClusterIP
+  ports:
+    - port: 20001    # Dummy port
+      targetPort: 20001
+  selector:
+    app: cloudflared

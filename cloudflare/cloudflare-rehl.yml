@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cloudflared
+spec:
+  template:
+    metadata:
+      labels:
+        app: cloudflared
+      annotations:
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/role: 'cloudflaredtoken'
+        vault.hashicorp.com/agent-inject-secret-credjson: 'cloudflare/data/data/cloudflardtoken/rehl'
+        vault.hashicorp.com/agent-inject-secret-tunnel: 'cloudflare/data/data/cloudflardtoken/rehl'
+        vault.hashicorp.com/agent-inject-secret-cert.pem: 'cloudflare/data/data/cloudflardtoken/rehlv3'
+        vault.hashicorp.com/tls-skip-verify: 'true'
+        vault.hashicorp.com/agent-inject-template-cred.json: |
+          {
+            "AccountTag": "{{- with secret "cloudflare/data/data/cloudflardtoken/rehl" -}}{{ .Data.data.AccountTag }}{{- end -}}",
+            "TunnelSecret": "{{- with secret "cloudflare/data/data/cloudflardtoken/rehl" -}}{{ .Data.data.TunnelSecret }}{{- end -}}",
+            "TunnelID": "{{- with secret "cloudflare/data/data/cloudflardtoken/rehl" -}}{{ .Data.data.TunnelID }}{{- end -}}"
+          }
+        vault.hashicorp.com/agent-inject-template-tunnel.yaml: |
+          tunnel: "{{- with secret "cloudflare/data/data/cloudflardtoken/rehl" -}}{{ .Data.data.TunnelID }}{{- end -}}"
+          credentials-file: /vault/secrets/cred.json
+          origincert: /etc/cloudflared/cert.pem
+    spec:
+      serviceAccountName: cloudflared-sa
+      containers:
+      - name: cloudflared
+        image: cloudflare/cloudflared:latest
+        args: ["tunnel", "route", "dns","test", "testlonghorn"]
+        env:
+        - name: TUNNEL_ORIGIN_CERT
+          value: /etc/cloudflared/cert.pem
+        volumeMounts:
+        - name: origin-cert
+          mountPath: /etc/cloudflared
+          subPath: cert.pem
+        securityContext:
+          privileged: false
+          allowPrivilegeEscalation: false
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+      restartPolicy: Never
+      volumes:
+      - name: origin-cert
+        secret:
+          secretName: origin-cert

@@ -1,0 +1,70 @@
+vault secrets enable -path=root pki
+
+vault secrets tune -max-lease-ttl=87600h root
+
+vault secrets enable -path=consul_root pki
+
+vault secrets tune -max-lease-ttl=43800h consul_root
+
+vault write -field=csr consul_root/intermediate/generate/internal \
+    common_name="dc1.consul"  \
+    ttl=43800h > consul_root.csr.pem
+
+
+vault write -field=certificate root/root/sign-intermediate \
+    csr=@consul_root.csr.pem \
+    format=pem_bundle \
+    ttl=43800h > consul_root.cert.pem
+
+
+vault write consul_root/intermediate/set-signed \
+    certificate=@consul_root.cert.pem
+
+
+vault write consul_root/config/urls \
+    issuing_certificates="http://vault-internal.vault.svc:8200/v1/connect_root/ca" \
+    crl_distribution_points="https://vault-internal.vault.svc:8200/v1/connect_root/crl"
+
+
+ vault write connect_root/config/urls   issuing_certificates="http://vault-internal.vault.svc:8200/v1/connect_root/ca"   crl_distribution_points="https://vault-internal.vault.svc:8200/v1/connect_root/crl"
+
+###
+
+
+vault policy write consul-server consul-server-policy.hcl
+
+vault policy write ca-policy ca-policy.hcl
+
+export NAME=consul
+export NAMESPACE=consul
+export DATACENTER=dc1
+
+
+vault write consul_root/roles/consul-server \
+    allowed_domains=allowed_domains="dc1.consul, consul-server, consul-server.consul, consul-server.consul.svc, server.dc1.consul" \
+    allow_subdomains=true \
+    allow_bare_domains=true \
+    allow_localhost=true \
+    max_ttl="720h"
+
+
+vault write auth/kubernetes/role/consul-server \
+    bound_service_account_names=consul-server \
+    bound_service_account_namespaces=consul\
+    policies=consul-server \
+    ttl=1h
+
+
+vault write auth/kubernetes/role/consul-client \
+    bound_service_account_names=consul-client \
+    bound_service_account_namespaces=default \
+    policies=ca-policy \
+    ttl=1h
+
+
+vault write auth/kubernetes/role/consul-ca \
+    bound_service_account_names="*" \
+    bound_service_account_namespaces=consul \
+    policies=ca-policy \
+    ttl=1h
+

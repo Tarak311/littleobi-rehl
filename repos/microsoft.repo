@@ -1,7 +1,0 @@
-[msrhel9.0prod]
-name=MSREHL
-baseurl=https://packages.microsoft.com/rhel/9.0/prod/
-repo_gpgcheck=0
-gpgcheck=0
-enabled=1
-gpgkey=https://packages.microsoft.com/rhel/9.0/prod/repodata/repomd.xml.key

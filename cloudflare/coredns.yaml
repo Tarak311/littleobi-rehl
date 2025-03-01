@@ -1,0 +1,48 @@
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 {
+        errors
+        health
+        ready
+        kubernetes k3s.littleobi.com in-addr.arpa ip6.arpa {
+          pods insecure
+          fallthrough in-addr.arpa ip6.arpa
+        }
+        hosts /etc/coredns/NodeHosts {
+          ttl 60
+          reload 15s
+          fallthrough
+        }
+        prometheus :9153
+        forward . /etc/resolv.conf
+        cache 30
+        loop
+        reload
+        loadbalance
+        import /etc/coredns/custom/*.override
+    }
+    consul {
+       errors
+       cache 30
+       forward . 10.43.1.215
+    }
+    import /etc/coredns/custom/*.server
+  NodeHosts: |
+    10.0.64.1 dragonvault
+    10.0.74.2 dragonstone
+kind: ConfigMap
+metadata:
+  annotations:
+    objectset.rio.cattle.io/applied: H4sIAAAAAAAA/4yQMU/DMBCF/4p1cxqapG2CJQbUEbEysVzsS2Pi3lW2Kaqi/ndkRYgBFdie9ezvvecZ8OReKEQnDBrOFRRgMSHoGfYSaHCeQEOpt42aX1kppSgECXHRI6FP46IDob0scnrvKTAlimpqYuldSp7gWsDk2IKGvfDgDs94ggKOlPArEZklYXLCMR+lfyOTIqUyOCkNZkrp5M5lBhQ3fflgCqvDeQINOf/bOVeFenJsHx6tFf4TwXjM640Eshz/dT2e0OQ3+QtW8RITHfNwjz35X0eNGEfQ0Buqu6a+77qqajcNrptuh/22Wg/1sGtpaDf1Zm22bYb+qHezwPUzAAD//6fUqzDoAQAA
+    objectset.rio.cattle.io/id: ""
+    objectset.rio.cattle.io/owner-gvk: k3s.cattle.io/v1, Kind=Addon
+    objectset.rio.cattle.io/owner-name: coredns
+    objectset.rio.cattle.io/owner-namespace: kube-system
+  creationTimestamp: "2025-02-09T14:21:39Z"
+  labels:
+    objectset.rio.cattle.io/hash: bce283298811743a0386ab510f2f67ef74240c57
+  name: coredns
+  namespace: kube-system
+  resourceVersion: "825"
+  uid: eb96305a-fb4b-474d-b4f7-d225a46d841a

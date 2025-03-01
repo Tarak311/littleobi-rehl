@@ -99,11 +99,6 @@ server:
     prometheusMetricsPort: 9102
 
 
-
-
-
-
-
 monitoring:
   enabled: true
   prometheus:

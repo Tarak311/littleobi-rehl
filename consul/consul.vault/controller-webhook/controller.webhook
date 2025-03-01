@@ -1,0 +1,71 @@
+vault secrets enable -path=controller pki
+vault secrets enable -path=connect-inject pki
+vault secrets tune -max-lease-ttl=87600h controller
+vault secrets tune -max-lease-ttl=87600h connect-inject
+
+vault write -field=certificate controller/root/generate/internal \
+        common_name="consul-controller-webhook" \
+        ttl=87600h
+
+vault write -field=certificate connect-inject/root/generate/internal \
+        common_name="consul-connect-injector" \
+        ttl=87600h
+
+vault policy write controller-tls-policy - <<EOF
+path "controller/issue/controller-role" {
+  capabilities = ["create", "update"]
+}
+EOF
+
+vault policy write connect-inject-policy - <<EOF
+path "connect-inject/issue/connect-inject-role" {
+  capabilities = ["create", "update"]
+}
+EOF
+
+
+vault policy write controller-ca-policy - <<EOF
+path "controller/cert/ca" {
+  capabilities = ["read"]
+}
+EOF
+
+
+vault policy write connect-inject-ca-policy - <<EOF
+path "connect-inject/cert/ca" {
+  capabilities = ["read"]
+}
+EOF
+
+
+
+vault write controller/roles/controller-role \
+    allowed_domains="consul-controller-webhook,consul-controller-webhook.consul,consul-controller-webhook.consul.svc,consul-controller-webhook.consul.svc.k3s.littleobi.com" \
+    allow_subdomains=true \
+    allow_bare_domains=true \
+    allow_localhost=true \
+    generate_lease=true \
+    max_ttl="720h"
+
+
+vault write connect-inject/roles/connect-inject-role \
+    allowed_domains="consul-connect-injector,consul-connect-injector.consul,consul-connect-injector.consul.svc,consul-connect-injector.consul.svc.k3s.littleobi.com" \
+    allow_subdomains=true \
+    allow_bare_domains=true \
+    allow_localhost=true \
+    generate_lease=true \
+    max_ttl="720h"
+
+
+vault write auth/kubernetes/role/controller-role \
+    bound_service_account_names=*\
+    bound_service_account_namespaces=consul\
+    policies=controller-ca-policy \
+    ttl=1h
+
+
+vault write auth/kubernetes/role/connect-inject-role \
+    bound_service_account_names=consul-connect-injector \
+    bound_service_account_namespaces=consul \
+    policies=connect-inject-ca-policy \
+    ttl=1h

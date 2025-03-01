@@ -5,11 +5,64 @@ global:
     autoGenerate: true
   tls:
     enabled: true
-    logLevel: warn
+    logLevel: debug
     enableAutoEncrypt: true
     verify: true
+    caCert:
+      secretName: "root/cert/ca"
+  secretsBackend:
+    secretsBackend:
+    vault:
+      enabled: true
+      vaultNamespace: "root"
+      consulServerRole: consul-server
+      consulClientRole: consul-client
+      consulCARole: consul-ca
+      controllerRole: controller-role
+      connectInjectRole: connect-inject-role
+      controller:
+        caCert:
+          secretName: "controller/cert/ca" 
+        tlsCert:
+          secretName: "controller/roles/controller-role"
+      connectInject:
+        caCert:
+          secretName: "connect-inject/cert/ca"
+        tlsCert:
+          secretName: "connect-inject/issue/connect-inject-role"
+      agentAnnotations: |
+          "vault.hashicorp.com/tls-skip-verify": 'true'
+      connectCA:
+        address: 'https://vault-internal.vault.svc:8200'
+        rootPKIPath: consul_root/
+        intermediatePKIPath: connect_dc1_inter/
+        authMethodPath: kubernetes
+        additionalConfig: |
+            {
+              "connect": [{
+                "ca_config": [{
+                    "leaf_cert_ttl": "36h",
+                    "TLSSkipVerify" : "true",
+                    "auth_method": {
+                          "type": "kubernetes",
+                          "mount_path": "kubernetes",
+                          "params": {
+                            "role": "consul-connect"
+                          }
+                        }
+                  }]
+              }]
+            }
+        agentAnnotations: |
+          "vault.hashicorp.com/tls-skip-verify": 'true'
+server: 
+  replicas: 1
+  serverCert:
+    secretName: "consul_root/issue/consul-server"
 connectInject:
   enabled: true
+  connect: true
+  replicas: 2
   cni:
     enabled: "true"
     logLevel: info
@@ -22,9 +75,19 @@ connectInject:
       limits:
         memory: "300Mi"
         cpu: "100m"
-  
+
 dns:
   enabled: true
   enableRedirection: true
-  type: ClusterIP
 
+webhookCertManager:
+  nodeSelector: |
+    node-role.kubernetes.io/master: "true"
+
+syncCatalog:
+  enabled: true
+  default: false
+
+
+controller:
+  enabled: true
